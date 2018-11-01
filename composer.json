@@ -1,0 +1,23 @@
+{
+    "name": "waska14/laravel-uuid",
+    "description": "Use uuid in models easily",
+    "keywords": ["laravel", "uuid", "generate"],
+    "type": "library",
+    "homepage": "https://github.com/waska14/laravel-uuid",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Waska Chaduneli (waska14)",
+            "email": "waska.chaduneli@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Waska\\LaravelUuid\\": "src/"
+        }
+    }
+}

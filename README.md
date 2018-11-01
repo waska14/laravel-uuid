@@ -42,27 +42,32 @@ Next, add the service provider in your `config/app.php`
 
 ```php
 // 2.1 If you want to use uuid column as primary column:
-Schema::create('users', function(Blueprint $table)
+Schema::create('students', function(Blueprint $table)
 {
     $table->uuid('uuid')->primary();
-    $table->string('another_column')->nullable();
+    $table->string('name');
+    $table->string('last_name');
     ...
 });
 
 // 2.2 If you want to use uuid column as non-primary column:
-Schema::create('users', function(Blueprint $table)
+Schema::create('students', function(Blueprint $table)
 {
     $table->increments('id');
     $table->uuid('uuid')->unique();
+    $table->string('name');
+    $table->string('last_name');
     ...
 });
 
 // 2.3 If you want to use multiple uuid columns (maybe on of them is primary):
-Schema::create('users', function(Blueprint $table)
+Schema::create('students', function(Blueprint $table)
 {
     $table->uuid('uuid')->primary();
     $table->uuid('uuid_column_2')->unique();
     $table->uuid('uuid_column_3')->unique();
+    $table->string('name');
+    $table->string('last_name');
     ...
 });
 ```
@@ -73,7 +78,7 @@ Schema::create('users', function(Blueprint $table)
 
 1. You must use trait in model
 ```php
-class User extends Authenticatable
+class Student extends Model
 {
     use \Waska\Traits\Uuid;
 }
@@ -84,25 +89,30 @@ class User extends Authenticatable
 2.2 If you are using uuid column as primary key and column_name **is not default** `id`, you must 
 define `protected $primaryKey` and `protected $uuid_column`:
 ```php
-class User extends Authenticatable
+class Student extends Model
 {
     use \Waska\Traits\Uuid;
 
     protected $primaryKey = "uuid_primary_column_name";
     protected $uuid_column = "uuid_primary_column_name";
+
+    protected $fillable = [
+        'name',
+        'last_name',
+    ];
 }
 ```
 
 2.3 If you are using non-primary uuid column and **column name equals to `default_column_name`** (from config), 
 you need only to append column name in `protected $fillable`:
 ```php
-class User extends Authenticatable
+class Student extends Model
 {
     use \Waska\Traits\Uuid;
 
     protected $fillable = [
         'name',
-        'email',
+        'last_name',
         'uuid', // config/waska.uuid.php -> default_column_name
     ];
 }
@@ -111,7 +121,7 @@ class User extends Authenticatable
 2.4 If you are using non-primary uuid column and **column name doesn't equal to `default_column_name`** (from config), 
 you need define `protected $uuid_column` and append column name in `protected $fillable`:
 ```php
-class User extends Authenticatable
+class Student extends Model
 {
     use \Waska\Traits\Uuid;
 
@@ -119,7 +129,7 @@ class User extends Authenticatable
     
     protected $fillable = [
         'name',
-        'email',
+        'last_name',
         'uuid_column_name',
     ];
 }
@@ -128,7 +138,7 @@ class User extends Authenticatable
 2.5 If you are using multiple uuid columns (if one of them is primary, you must do step ***2.1*** at first),
 you need define `protected $uuid_column` **as an array** and append column names (*only non-primary*) in `protected $fillable`
 ```php
-class User extends Authenticatable
+class Student extends Model
 {
     use \Waska\Traits\Uuid;
 
@@ -137,12 +147,33 @@ class User extends Authenticatable
     
     protected $fillable = [
         'name',
-        'email',
+        'last_name',
         'uuid_column_name1',
         'uuid_column_name2',
         'uuid_column_name3',
     ];
 }
+```
+
+2.6 Now when creating new `Student` object, uuid(s) must be generated **automatically**
+```php
+Student::create([
+    'name'      => "Bill',
+    'last_name' => "Gates',
+]);
+
+// or
+$student = new Student([
+    'name'      => "Bill',
+    'last_name' => "Gates',
+]);
+$student->save();
+
+// or
+$student = new Student();
+$student->name = "Bill";
+$student->last_name = "Gates";
+$student->save();
 ```
 
 

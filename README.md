@@ -75,7 +75,7 @@ Schema::create('users', function(Blueprint $table)
 ```php
 class User extends Authenticatable
 {
-    use Waska\Traits\Uuid;
+    use \Waska\Traits\Uuid;
 }
 ```
 
@@ -86,7 +86,7 @@ define `protected $primaryKey` and `protected $uuid_column`:
 ```php
 class User extends Authenticatable
 {
-    use Waska\Traits\Uuid;
+    use \Waska\Traits\Uuid;
 
     protected $primaryKey = "uuid_primary_column_name";
     protected $uuid_column = "uuid_primary_column_name";
@@ -98,7 +98,7 @@ you need only to append column name in `protected $fillable`:
 ```php
 class User extends Authenticatable
 {
-    use Waska\Traits\Uuid;
+    use \Waska\Traits\Uuid;
 
     protected $fillable = [
         'name',
@@ -113,7 +113,7 @@ you need define `protected $uuid_column` and append column name in `protected $f
 ```php
 class User extends Authenticatable
 {
-    use Waska\Traits\Uuid;
+    use \Waska\Traits\Uuid;
 
     protected $uuid_column = "uuid_column_name";
     
@@ -130,7 +130,7 @@ you need define `protected $uuid_column` **as an array** and append column names
 ```php
 class User extends Authenticatable
 {
-    use Waska\Traits\Uuid;
+    use \Waska\Traits\Uuid;
 
     protected $primaryKey = "uuid_primary_column_name"; // If one of them is primary
     protected $uuid_column = ["uuid_column_name1", "uuid_column_name2", "uuid_column_name3"];

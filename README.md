@@ -103,7 +103,7 @@ class Student extends Model
 }
 ```
 
-2.3 If you are using non-primary uuid column and **column name equals to `default_column_name`** (from config), 
+2.3 If you are using non-primary uuid column and **column name equals to `default_column_name`** (`uuid` from config), 
 you need only to append column name in `protected $fillable`:
 ```php
 class Student extends Model
@@ -118,7 +118,7 @@ class Student extends Model
 }
 ```
 
-2.4 If you are using non-primary uuid column and **column name doesn't equal to `default_column_name`** (from config), 
+2.4 If you are using non-primary uuid column and **column name doesn't equal to `default_column_name`** (`uuid` from config), 
 you need define `protected $uuid_column` and append column name in `protected $fillable`:
 ```php
 class Student extends Model
@@ -155,7 +155,7 @@ class Student extends Model
 }
 ```
 
-2.6 Now when creating new `Student` object, uuid(s) must be generated **automatically**
+2.6 Now when you create new `Student` object, uuid(s) will be generated **automatically**
 ```php
 Student::create([
     'name'      => "Bill',
@@ -179,9 +179,9 @@ $student->save();
 
 ## Configuration
 
-***If you want to change default configuration***, you must copy the configuration file to your project.
+***If you want to change default configuration***, you must publish default configuration file to your project.
 
-Laravel 5.*
+You can publish config by running this in console:
 ```bash
 php artisan vendor:publish --tag=waska-uuid-config
 ```
@@ -191,9 +191,8 @@ and **v5_default_namespace** with valid uuid strings .*
 
 *Generate them with this command in tinker (Start tinker: `php artisan tinker`)*
 ```php
-Waska\Uuid::get(4);
+Waska\Uuid::get(4); // This command will generate valid uuid (v4, pseudo-random) string
 ```
-*Where **3** is version number. For **v5** you must pass **5** as the first parameter.*
 
 
 

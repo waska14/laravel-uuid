@@ -22,7 +22,7 @@ trait UuidTrait
         foreach ($this->getUuidColumns() as $column_name) {
             $this->setUuid($column_name);
         }
-        parent::save($options);
+        return parent::save($options);
     }
 
     /**

@@ -19,10 +19,24 @@ trait UuidTrait
      */
     public function save(array $options = [])
     {
+        $this->fillColumns($options);
+        return parent::save($options);
+    }
+
+    /**
+     * This method get uuid_columns and for each uuid column name
+     * generates uuid string.
+     *
+     * @param string $column_name. Column to set uuid.
+     *
+     * @return void
+     */
+    public function fillColumns(array $options = [])
+    {
         foreach ($this->getUuidColumns() as $column_name) {
             $this->setUuid($column_name);
         }
-        return parent::save($options);
+        return true;
     }
 
     /**
